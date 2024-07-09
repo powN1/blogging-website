@@ -4,7 +4,7 @@ import { UserContext } from "../App";
 
 const SideNav = () => {
 	const {
-		userAuth: { access_token },
+		userAuth: { access_token, new_notification_available },
 	} = useContext(UserContext);
 
 	const pageLocation = location.pathname.split("/")[2];
@@ -66,9 +66,14 @@ const SideNav = () => {
 							Blogs
 						</NavLink>
 
-						<NavLink to="/dashboard/notification" onClick={e => setPage(e.target.innerText)} className="sidebar-link">
-							<i className="fi fi-rr-bell"></i>
-							Notification
+						<NavLink to="/dashboard/notifications" onClick={e => setPage(e.target.innerText)} className="sidebar-link">
+							<div className="relative">
+								<i className="fi fi-rr-bell"></i>
+								{new_notification_available ? (
+									<span className="bg-red w-2 h-2 rounded-full absolute z-10 right-0 top-0"></span>
+								) : null}
+							</div>
+							Notifications
 						</NavLink>
 
 						<NavLink to="/dashboard/write" onClick={e => setPage(e.target.innerText)} className="sidebar-link">

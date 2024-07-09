@@ -7,6 +7,7 @@ import AnimationWrapper from "../common/page-animation";
 import { storeInSession } from "../common/session";
 import InputBox from "../components/input.component";
 import googleIcon from "../imgs/google.png";
+import { authWithGoogle } from "../common/firebase";
 
 const UserAuthForm = ({ type }) => {
 	let {
