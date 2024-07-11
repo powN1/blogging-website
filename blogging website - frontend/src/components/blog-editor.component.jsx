@@ -1,7 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Logo from "../imgs/logo.png";
+import lightLogo from "../imgs/logo-light.png";
+import darkLogo from "../imgs/logo-dark.png";
 import AnimationWrapper from "../common/page-animation";
-import defaultBanner from "../imgs/blog banner.png";
+import lightBanner from "../imgs/blog banner light.png";
+import darkBanner from "../imgs/blog banner dark.png";
 import uploadImage from "../common/aws";
 import { useContext, useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
@@ -9,7 +11,7 @@ import { EditorContext } from "../pages/editor.pages";
 import EditorJS from "@editorjs/editorjs";
 import { tools } from "./tools.component";
 import axios from "axios";
-import { UserContext } from "../App";
+import { ThemeContext, UserContext } from "../App";
 
 const BlogEditor = () => {
 	let {
@@ -27,6 +29,8 @@ const BlogEditor = () => {
 	let { blog_id } = useParams();
 
 	let navigate = useNavigate();
+
+	const { theme } = useContext(ThemeContext);
 
 	// useEffect
 	useEffect(() => {
@@ -78,7 +82,7 @@ const BlogEditor = () => {
 	};
 	const handleBannerError = e => {
 		let img = e.target;
-		img.src = defaultBanner;
+		img.src = theme === "light" ? lightBanner : darkBanner;
 	};
 	const handlePublishEvent = () => {
 		if (!banner.length) {
@@ -93,6 +97,7 @@ const BlogEditor = () => {
 				.then(data => {
 					if (data.blocks.length) {
 						setBlog({ ...blog, content: data });
+
 						setEditorState("publish");
 					} else {
 						return toast.error("Write something in your blog to publish it");
@@ -141,11 +146,10 @@ const BlogEditor = () => {
 						e.target.classList.remove("disable");
 
 						toast.dismiss(loadingToast);
-
 						toast.success("Saved");
 
 						setTimeout(() => {
-							navigate("/");
+							navigate("/dashboard/blogs?tab=draft");
 						}, 500);
 					})
 					.catch(({ response }) => {
@@ -163,7 +167,7 @@ const BlogEditor = () => {
 		<>
 			<nav className="navbar">
 				<Link to="/">
-					<img src={Logo} alt="page logo" className="flex-none w-10" />
+					<img src={theme === "light" ? darkLogo : lightLogo} alt="page logo" className="flex-none w-10" />
 				</Link>
 				<p className="max-md:hidden text-black line-clamp-1 w-full">{title.length ? title : "New blog"}</p>
 				<div className="flex gap-4 ml-auto">
@@ -195,7 +199,7 @@ const BlogEditor = () => {
 						<textarea
 							defaultValue={title}
 							placeholder="Blog title"
-							className="text-4xl font-medium w-full h-20 outline-none resize-none mt-10 leading-tight placeholder:opacity-40"
+							className="text-4xl font-medium w-full h-20 outline-none resize-none mt-10 leading-tight placeholder:opacity-40 bg-white"
 							onKeyDown={handleTitleKeyDown}
 							onChange={handleTitleChange}
 						></textarea>
