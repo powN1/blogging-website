@@ -124,6 +124,7 @@ const deleteBlog = (blog, access_token, target) => {
 			target.removeAttribute("disabled");
 			setStateFunc(prevVal => {
 				let { deletedDocCount, totalDocs, results } = prevVal;
+				console.log(`blog index: ${index}`);
 
 				results.splice(index, 1);
 

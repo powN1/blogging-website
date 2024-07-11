@@ -1,19 +1,23 @@
 import { useContext, useEffect, useState } from "react";
-import logo from "../imgs/logo.png";
+import darkLogo from "../imgs/logo-dark.png";
+import lightLogo from "../imgs/logo-light.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { UserContext } from "../App";
+import { ThemeContext, UserContext } from "../App";
 import UserNavigationPanel from "./user-navigation.component";
 import axios from "axios";
+import { storeInSession } from "../common/session";
 
 const Navbar = () => {
 	const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
+	const [userNavPanel, setUserNavPanel] = useState(false);
+
+	const { theme, setTheme } = useContext(ThemeContext);
 
 	const {
 		userAuth,
 		userAuth: { access_token, profile_img, new_notification_available },
 		setUserAuth,
 	} = useContext(UserContext);
-	const [userNavPanel, setUserNavPanel] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -51,11 +55,20 @@ const Navbar = () => {
 		}
 	};
 
+	const handleThemeChange = () => {
+		const newTheme = theme === "light" ? "dark" : "light";
+		setTheme(newTheme);
+
+		document.body.setAttribute("data-theme", newTheme);
+
+		storeInSession("theme", newTheme);
+	};
+
 	return (
 		<>
 			<nav className="navbar z-50">
 				<Link to="/" className="flex-none w-10">
-					<img src={logo} alt="logo" />
+					<img src={theme === "light" ? darkLogo : lightLogo} alt="logo" />
 				</Link>
 
 				<div
@@ -84,6 +97,10 @@ const Navbar = () => {
 						<i className="fi fi-rr-file-edit"></i>
 						<p>Write</p>
 					</Link>
+
+					<button className="w-12 h-12 rounded-full bg-grey relative hover:bg-black/10" onClick={handleThemeChange}>
+						<i className={"fi fi-rr-" + (theme === "light" ? "moon-stars" : "sun") + " text-xl block mt-1.5"}></i>
+					</button>
 
 					{access_token ? (
 						<>

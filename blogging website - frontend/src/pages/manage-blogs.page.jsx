@@ -1,19 +1,22 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
-import { useState } from "react";
-import { UserContext } from "../App.jsx";
+import { useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import AnimationWrapper from "../common/page-animation.jsx";
 import { filterPaginationData } from "../common/filter-pagination-data.jsx";
+import { UserContext } from "../App.jsx";
 import { Toaster } from "react-hot-toast";
 import InPageNavigation from "../components/inpage-navigation.component.jsx";
 import Loader from "../components/loader.component.jsx";
 import NoDataMessage from "../components/nodata.component.jsx";
-import AnimationWrapper from "../common/page-animation.jsx";
 import { ManagePublishedBlogCard, ManageDraftBlogPost } from "../components/manage-blogcard.component.jsx";
+import LoadMoreDataBtn from "../components/load-more.component.jsx";
 
 const ManageBlogs = () => {
 	const [blogs, setBlogs] = useState(null);
 	const [drafts, setDrafts] = useState(null);
 	const [query, setQuery] = useState("");
+
+	const activeTab = useSearchParams()[0].get("tab");
 
 	const {
 		userAuth: { access_token },
@@ -94,7 +97,7 @@ const ManageBlogs = () => {
 				<i className="fi fi-rr-search absolute right-[10%] md:pointer-events-none md:left-5 top-1/2 -translate-y-1/2 text-xl text-dark-grey"></i>
 			</div>
 
-			<InPageNavigation routes={["Published Blogs", "Drafts"]}>
+			<InPageNavigation routes={["Published Blogs", "Drafts"]} defaultActiveIndex={activeTab !== "draft" ? 0 : 1}>
 				{
 					// Published blogs
 					blogs === null ? (
@@ -108,6 +111,12 @@ const ManageBlogs = () => {
 									</AnimationWrapper>
 								);
 							})}
+
+							<LoadMoreDataBtn
+								state={blogs}
+								fetchDataFunc={getBlogs}
+								additionalParams={{ draft: false, deletedDocCount: blogs.deletedDocCount }}
+							/>
 						</>
 					) : (
 						<NoDataMessage message="No published blogs" />
@@ -123,10 +132,16 @@ const ManageBlogs = () => {
 							{drafts.results.map((blog, i) => {
 								return (
 									<AnimationWrapper key={i} transition={{ delay: i * 0.04 }}>
-										<ManageDraftBlogPost blog={{ ...blog, index: i + 1, setStateFunc: setDrafts }} />
+										<ManageDraftBlogPost blog={{ ...blog, index: i, setStateFunc: setDrafts }} />
 									</AnimationWrapper>
 								);
 							})}
+
+							<LoadMoreDataBtn
+								state={drafts}
+								fetchDataFunc={getBlogs}
+								additionalParams={{ draft: true, deletedDocCount: drafts.deletedDocCount }}
+							/>
 						</>
 					) : (
 						<NoDataMessage message="No draft blogs" />

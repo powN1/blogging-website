@@ -85,13 +85,14 @@ const verifyJWT = (req, res, next) => {
 		}
 
 		req.user = user.id;
+		req.admin = user.admin;
 		next();
 	});
 };
 
 const formatDataToSend = (user) => {
 	const access_token = jwt.sign(
-		{ id: user._id },
+		{ id: user._id, admin: user.admin },
 		process.env.SECRET_ACCESS_KEY,
 	);
 	return {
@@ -99,6 +100,7 @@ const formatDataToSend = (user) => {
 		profile_img: user.personal_info.profile_img,
 		username: user.personal_info.username,
 		fullname: user.personal_info.fullname,
+		isAdmin: user.admin,
 	};
 };
 
@@ -245,7 +247,7 @@ server.post("/google-auth", async (req, res) => {
 });
 
 server.post("/create-blog", verifyJWT, (req, res) => {
-	let authorId = req.user;
+	const authorId = req.user;
 
 	let { title, des, banner, tags, content, draft, id } = req.body;
 
