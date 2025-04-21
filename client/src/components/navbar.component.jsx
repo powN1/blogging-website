@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import darkLogo from "../imgs/logo-dark.png";
-import lightLogo from "../imgs/logo-light.png";
+import darkLogo from "../imgs/inkspireLogoExtended.png";
+import lightLogo from "../imgs/inkspireLogoExtendedLight.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { ThemeContext, UserContext } from "../App";
 import UserNavigationPanel from "./user-navigation.component";
@@ -67,7 +67,7 @@ const Navbar = () => {
 	return (
 		<>
 			<nav className="navbar z-50">
-				<Link to="/" className="flex-none w-10">
+				<Link to="/" className="flex-none w-32">
 					<img src={theme === "light" ? darkLogo : lightLogo} alt="logo" />
 				</Link>
 

@@ -87,7 +87,7 @@ const UserAuthForm = ({ type }) => {
 		<AnimationWrapper keyValue={type}>
 			<section className="h-cover flex items-center justify-center">
 				<Toaster />
-				<form id="formElement" className="w-[80%] max-width-[400px]">
+				<form id="formElement" className="w-[90%] md:w-2/3 lg:w-1/4 max-width-[400px]">
 					<h1 className="text-4xl font-gelasio captialize text-center mb-24">
 						{type === "sign-in" ? "Welcome back" : "Join us today"}
 					</h1>
@@ -96,7 +96,7 @@ const UserAuthForm = ({ type }) => {
 					) : null}
 					<InputBox name="email" type="email" placeholder="Email" icon="fi-rr-envelope" />
 					<InputBox name="password" type="password" placeholder="Password" icon="fi-rr-key" />
-					<button onClick={handleSubmit} className="btn-dark center mt-14" type="submit">
+					<button onClick={handleSubmit} className="btn-dark center mt-14 w-[90%]" type="submit">
 						{type.replace("-", " ")}
 					</button>
 					<div className="relative w-full flex items-center gap-2 my-10 opacity-10 uppercase text-black font-bold">

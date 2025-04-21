@@ -8,7 +8,7 @@ import { nanoid } from "nanoid";
 // firebase
 import admin from "firebase-admin";
 import { getAuth } from "firebase-admin/auth";
-import serviceAccountKey from "./react-blog-website-71d78-firebase-adminsdk-no9f5-1fed842c56.json" assert {
+import serviceAccountKey from "./react-blog-website-71d78-firebase-adminsdk-no9f5-1fed842c56.json" with {
 	type: "json",
 };
 //aws
@@ -26,7 +26,7 @@ let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for e
 let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
 
 // Establish database connection
-const PORT = 3000;
+const PORT = process.env.PORT || 3003;
 
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccountKey),
