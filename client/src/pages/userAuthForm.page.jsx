@@ -30,7 +30,7 @@ const UserAuthForm = ({ type }) => {
 	const handleSubmit = e => {
 		e.preventDefault();
 
-		const serverRoute = type === "sign-in" ? "/signin" : "/signup";
+		const serverRoute = type === "sign-in" ? "/api/signin" : "/api/signup";
 
 		// Regex for identifying whether the email and password are correctly formatted
 		let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email
@@ -67,7 +67,7 @@ const UserAuthForm = ({ type }) => {
 		e.preventDefault();
 		authWithGoogle()
 			.then(user => {
-				let serverRoute = "/google-auth";
+				let serverRoute = "/api/google-auth";
 
 				let formData = {
 					access_token: user.accessToken,
