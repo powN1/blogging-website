@@ -89,7 +89,7 @@ const PublishForm = () => {
 		};
 		axios
 			.post(
-				import.meta.env.VITE_SERVER_DOMAIN + "/create-blog",
+				import.meta.env.VITE_SERVER_DOMAIN + "/api/create-blog",
 				{ ...blogObj, id: blog_id },
 				{
 					headers: {

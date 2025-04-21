@@ -10,7 +10,7 @@ export const fetchComments = async ({ skip = 0, blog_id, setParentCommentCountFu
   let res;
 
   await axios
-    .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog-comments", {
+    .post(import.meta.env.VITE_SERVER_DOMAIN + "/api/get-blog-comments", {
       blog_id,
       skip,
     })

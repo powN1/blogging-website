@@ -45,7 +45,7 @@ const ProfilePage = () => {
   const { userAuth: { username } } = useContext(UserContext);
 
   const fetchUserProfile = () => {
-    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-profile", { username: profileId })
+    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/get-profile", { username: profileId })
       .then(({ data: user }) => {
         if (user !== null) {
           setProfile(user);
@@ -71,7 +71,7 @@ const ProfilePage = () => {
   const getBlogs = ({ page = 1, user_id }) => {
     user_id = user_id == undefined ? blogs.user_id : user_id;
 
-    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", {
+    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/search-blogs", {
       author: user_id,
       page,
     })
@@ -81,7 +81,7 @@ const ProfilePage = () => {
           state: blogs,
           data: data.blogs,
           page,
-          countRoute: "/search-blogs-count",
+          countRoute: "/api/search-blogs-count",
           data_to_send: { author: user_id },
         });
 

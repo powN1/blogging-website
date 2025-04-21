@@ -109,7 +109,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
 			hideReplies();
 
 			axios
-				.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-replies", { _id: commentsArr[currentIndex]._id, skip })
+				.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/get-replies", { _id: commentsArr[currentIndex]._id, skip })
 				.then(({ data: { replies } }) => {
 					commentsArr[currentIndex].isReplyLoaded = true;
 
@@ -130,7 +130,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
 
 		axios
 			.post(
-				import.meta.env.VITE_SERVER_DOMAIN + "/delete-comment",
+				import.meta.env.VITE_SERVER_DOMAIN + "/api/delete-comment",
 				{ _id },
 				{
 					headers: {

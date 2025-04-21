@@ -31,7 +31,7 @@ const Editor = () => {
 		}
 
 		axios
-			.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog", { blog_id, draft: true, mode: "edit" })
+			.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/get-blog", { blog_id, draft: true, mode: "edit" })
 			.then(({ data: { blog } }) => {
 				setBlog(blog);
 				setLoading(false);

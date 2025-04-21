@@ -33,7 +33,7 @@ const EditProfile = () => {
   useEffect(() => {
     if (access_token) {
       axios
-        .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-profile", { username: userAuth.username })
+        .post(import.meta.env.VITE_SERVER_DOMAIN + "/api/get-profile", { username: userAuth.username })
         .then(({ data }) => {
           setProfile(data);
           setLoading(false);
@@ -67,7 +67,7 @@ const EditProfile = () => {
           if (url) {
             axios
               .post(
-                import.meta.env.VITE_SERVER_DOMAIN + "/update-profile-img",
+                import.meta.env.VITE_SERVER_DOMAIN + "/api/update-profile-img",
                 { url: url },
                 {
                   headers: {
@@ -119,7 +119,7 @@ const EditProfile = () => {
     const loadingToast = toast.loading("Updating");
     e.target.setAttribute("disabled", true);
 
-    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/update-profile", { username, bio, social_links: { youtube, facebook, twitter, github, instagram, website },},
+    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/update-profile", { username, bio, social_links: { youtube, facebook, twitter, github, instagram, website },},
         {
           headers: {
             Authorization: `${access_token}`,

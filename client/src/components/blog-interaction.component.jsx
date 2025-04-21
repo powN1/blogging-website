@@ -32,7 +32,7 @@ const BlogInteraction = () => {
 		if (access_token) {
 			axios
 				.post(
-					import.meta.env.VITE_SERVER_DOMAIN + "/is-liked-by-user",
+					import.meta.env.VITE_SERVER_DOMAIN + "/api/is-liked-by-user",
 					{ _id },
 					{
 						headers: {
@@ -57,7 +57,7 @@ const BlogInteraction = () => {
 
 			axios
 				.post(
-					import.meta.env.VITE_SERVER_DOMAIN + "/like-blog",
+					import.meta.env.VITE_SERVER_DOMAIN + "/api/like-blog",
 					{ _id, isLikedByUser },
 					{
 						headers: {

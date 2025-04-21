@@ -28,7 +28,7 @@ const ManageBlogs = () => {
 	const getBlogs = ({ page, draft, deletedDocCount = 0 }) => {
 		axios
 			.post(
-				import.meta.env.VITE_SERVER_DOMAIN + "/user-written-blogs",
+				import.meta.env.VITE_SERVER_DOMAIN + "/api/user-written-blogs",
 				{ page, draft, query, deletedDocCount },
 				{
 					headers: {
@@ -42,7 +42,7 @@ const ManageBlogs = () => {
 					data: data.blogs,
 					page,
 					user: access_token,
-					countRoute: "/user-written-blogs-count",
+					countRoute: "/api/user-written-blogs-count",
 					data_to_send: { draft, query },
 				});
 

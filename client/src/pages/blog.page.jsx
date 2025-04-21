@@ -44,7 +44,7 @@ const BlogPage = () => {
 
 	const fetchBlog = () => {
 		axios
-			.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog", { blog_id })
+			.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/get-blog", { blog_id })
 			.then(async ({ data: { blog } }) => {
 				blog.comments = await fetchComments({
 					blog_id: blog._id,
@@ -54,7 +54,7 @@ const BlogPage = () => {
 				setBlog(blog);
 
 				axios
-					.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", {
+					.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/search-blogs", {
 						tag: blog.tags[0],
 						limit: 6,
 						ignore_blog: blog_id,

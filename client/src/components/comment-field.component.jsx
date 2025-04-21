@@ -35,7 +35,7 @@ const CommentField = ({ action, index = null, replyingTo = undefined, setReplyin
 
     axios
       .post(
-        import.meta.env.VITE_SERVER_DOMAIN + "/add-comment",
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/add-comment",
         {
           _id,
           blog_author,

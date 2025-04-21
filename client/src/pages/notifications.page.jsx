@@ -38,7 +38,7 @@ const Notifications = () => {
 	const fetchNotifications = ({ page, deletedDocCount = 0 }) => {
 		axios
 			.post(
-				import.meta.env.VITE_SERVER_DOMAIN + "/notifications",
+				import.meta.env.VITE_SERVER_DOMAIN + "/api/notifications",
 				{ page, filter, deletedDocCount },
 				{
 					headers: {
@@ -55,7 +55,7 @@ const Notifications = () => {
 					state: notifications,
 					data,
 					page,
-					countRoute: "/all-notifications-count",
+					countRoute: "/api/all-notifications-count",
 					data_to_send: { filter },
 					user: access_token,
 				});

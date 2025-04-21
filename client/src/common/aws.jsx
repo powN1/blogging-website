@@ -3,7 +3,7 @@ import axios from "axios";
 const uploadImage = async (img) => {
   let imgUrl = null;
 
-  await axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/get-upload-url")
+  await axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/api/get-upload-url")
     .then(async ({ data: { uploadUrl } }) => {
       await axios({
         method: "PUT",
