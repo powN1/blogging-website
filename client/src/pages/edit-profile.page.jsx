@@ -119,7 +119,10 @@ const EditProfile = () => {
     const loadingToast = toast.loading("Updating");
     e.target.setAttribute("disabled", true);
 
-    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/update-profile", { username, bio, social_links: { youtube, facebook, twitter, github, instagram, website },},
+    axios
+      .post(
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/update-profile",
+        { username, bio, social_links: { youtube, facebook, twitter, github, instagram, website } },
         {
           headers: {
             Authorization: `${access_token}`,
@@ -127,7 +130,7 @@ const EditProfile = () => {
         }
       )
       .then(({ data }) => {
-        console.log(`Data came back: ${data}`)
+        console.log(`Data came back: ${data}`);
         if (userAuth.username !== data.username) {
           const newUserAuth = { ...userAuth, username: data.username };
 
@@ -152,7 +155,7 @@ const EditProfile = () => {
       {loading ? (
         <Loader />
       ) : (
-        <form ref={editProfileForm}>
+        <form ref={editProfileForm} onSubmit={handleSubmit}>
           <Toaster />
           <h1 className="max-md:hidden">Edit Profile</h1>
           <div className="flex flex-col lg:flex-row items-start py-10 gap-8 lg:gap-10">
@@ -233,7 +236,7 @@ const EditProfile = () => {
                   );
                 })}
               </div>
-              <button className="btn-dark w-auto px-10" type="submit" onClick={handleSubmit}>
+              <button className="btn-dark w-auto px-10" type="submit">
                 Update
               </button>
             </div>

@@ -23,14 +23,14 @@ const PageNotFound = () => {
 					home page
 				</Link>
 			</p>
-			<div className="mt-auto">
+			<Link to="/" className="mt-auto">
 				<img
 					src={theme === "light" ? darkFullLogo : lightFullLogo}
 					alt="website logo"
 					className="h-16 object-contain block mx-auto select-none"
 				/>
 				<p className="mt-5 text-dark-grey">Read milions of stories from around the world</p>
-			</div>
+			</Link>
 		</section>
 	);
 };

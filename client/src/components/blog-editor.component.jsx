@@ -1,6 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import lightLogo from "../imgs/inkspireLogoExtendedLight.png";
 import darkLogo from "../imgs/inkspireLogoExtended.png";
+import logo from "../imgs/inkspireLogo.png";
 import AnimationWrapper from "../common/page-animation";
 import lightBanner from "../imgs/blog banner light.png";
 import darkBanner from "../imgs/blog banner dark.png";
@@ -166,8 +167,8 @@ const BlogEditor = () => {
 	return (
 		<>
 			<nav className="navbar">
-				<Link to="/">
-					<img src={theme === "light" ? darkLogo : lightLogo} alt="page logo" className="flex-none w-10" />
+				<Link to="/" className="flex-none w-14">
+					<img src={logo} alt="page logo" />
 				</Link>
 				<p className="max-md:hidden text-black line-clamp-1 w-full">{title.length ? title : "New blog"}</p>
 				<div className="flex gap-4 ml-auto">
