@@ -1,4 +1,9 @@
-# 🖋️ Inkspire
+
+<div align="center">
+    <img src="./client/src/imgs/inkspireLogoExtended.png" width="180"/>
+</div>
+
+<br>
 
 <a href="https://pownprojects.site/inkspire" style="text-decoration: underline; font-weight: bold;">Inkspire</a>
 is a modern, MERN stack blogging platform that empowers users to express themselves through rich content. Built with a seamless user experience in mind, Inkspire allows users to write, comment, like articles, respond to comments, and manage their profiles with ease.
