@@ -105,7 +105,7 @@ const formatDataToSend = (user) => {
 };
 
 // Handle "/signup" post request
-server.post("/api/signup", (req, res) => {
+server.post("/inkspire/api/signup", (req, res) => {
 	const { fullname, email, password } = req.body;
 
 	if (fullname.length < 3) {
@@ -153,7 +153,7 @@ server.post("/api/signup", (req, res) => {
 	});
 });
 
-server.post("/api/signin", (req, res) => {
+server.post("/inkspire/api/signin", (req, res) => {
 	let { email, password } = req.body;
 
 	User.findOne({ "personal_info.email": email })
@@ -189,7 +189,7 @@ server.post("/api/signin", (req, res) => {
 		});
 });
 
-server.post("/api/google-auth", async (req, res) => {
+server.post("/inkspire/api/google-auth", async (req, res) => {
 	let { access_token } = req.body;
 
 	getAuth()
@@ -246,7 +246,7 @@ server.post("/api/google-auth", async (req, res) => {
 		});
 });
 
-server.post("/api/create-blog", verifyJWT, (req, res) => {
+server.post("/inkspire/api/create-blog", verifyJWT, (req, res) => {
 	const authorId = req.user;
 
 	let { title, des, banner, tags, content, draft, id } = req.body;
@@ -341,7 +341,7 @@ server.post("/api/create-blog", verifyJWT, (req, res) => {
 	}
 });
 
-server.post("/api/like-blog", verifyJWT, (req, res) => {
+server.post("/inkspire/api/like-blog", verifyJWT, (req, res) => {
 	const user_id = req.user;
 
 	const { _id, isLikedByUser } = req.body;
@@ -382,7 +382,7 @@ server.post("/api/like-blog", verifyJWT, (req, res) => {
 		.catch((err) => res.status(500).json({ error: err.message }));
 });
 
-server.post("/api/get-blog", (req, res) => {
+server.post("/inkspire/api/get-blog", (req, res) => {
 	const { blog_id, draft, mode } = req.body;
 
 	let incrementVal = mode !== "edit" ? 1 : 0;
@@ -413,7 +413,7 @@ server.post("/api/get-blog", (req, res) => {
 		.catch((err) => res.status(500).json({ error: err.message }));
 });
 
-server.post("/api/search-blogs", (req, res) => {
+server.post("/inkspire/api/search-blogs", (req, res) => {
 	const { author, tag, page, query, limit, ignore_blog } = req.body;
 
 	let findQuery;
@@ -445,7 +445,7 @@ server.post("/api/search-blogs", (req, res) => {
 		});
 });
 
-server.post("/api/latest-blogs", (req, res) => {
+server.post("/inkspire/api/latest-blogs", (req, res) => {
 	const { page } = req.body;
 
 	const maxLimit = 5;
@@ -467,7 +467,7 @@ server.post("/api/latest-blogs", (req, res) => {
 		});
 });
 
-server.post("/api/all-latest-blogs-count", (_req, res) => {
+server.post("/inkspire/api/all-latest-blogs-count", (_req, res) => {
 	Blog.countDocuments({ draft: false })
 		.then((count) => {
 			return res.status(200).json({ totalDocs: count });
@@ -477,7 +477,7 @@ server.post("/api/all-latest-blogs-count", (_req, res) => {
 		});
 });
 
-server.post("/api/search-blogs-count", (req, res) => {
+server.post("/inkspire/api/search-blogs-count", (req, res) => {
 	const { author, tag, query } = req.body;
 
 	let findQuery;
@@ -499,7 +499,7 @@ server.post("/api/search-blogs-count", (req, res) => {
 		});
 });
 
-server.post("/api/search-users", (req, res) => {
+server.post("/inkspire/api/search-users", (req, res) => {
 	let { query } = req.body;
 
 	User.find({ "personal_info.username": new RegExp(query, "i") })
@@ -515,7 +515,7 @@ server.post("/api/search-users", (req, res) => {
 		});
 });
 
-server.post("/api/get-profile", (req, res) => {
+server.post("/inkspire/api/get-profile", (req, res) => {
 	const { username } = req.body;
 
 	User.findOne({ "personal_info.username": username })
@@ -529,7 +529,7 @@ server.post("/api/get-profile", (req, res) => {
 });
 
 // upload img url route
-server.get("/api/get-upload-url", (_req, res) => {
+server.get("/inkspire/api/get-upload-url", (_req, res) => {
 	generateUploadUrl()
 		.then((url) => res.status(200).json({ uploadUrl: url }))
 		.catch((err) => {
@@ -537,7 +537,7 @@ server.get("/api/get-upload-url", (_req, res) => {
 		});
 });
 
-server.get("/api/trending-blogs", (_req, res) => {
+server.get("/inkspire/api/trending-blogs", (_req, res) => {
 	Blog.find({ draft: false })
 		.populate(
 			"author",
@@ -558,7 +558,7 @@ server.get("/api/trending-blogs", (_req, res) => {
 		});
 });
 
-server.post("/api/is-liked-by-user", verifyJWT, (req, res) => {
+server.post("/inkspire/api/is-liked-by-user", verifyJWT, (req, res) => {
 	const user_id = req.user;
 
 	const { _id } = req.body;
@@ -570,7 +570,7 @@ server.post("/api/is-liked-by-user", verifyJWT, (req, res) => {
 		.catch((err) => res.status(500).json({ err: err.message }));
 });
 
-server.post("/api/add-comment", verifyJWT, (req, res) => {
+server.post("/inkspire/api/add-comment", verifyJWT, (req, res) => {
 	const user_id = req.user;
 
 	const { _id, comment, blog_author, replying_to, notification_id } = req.body;
@@ -646,7 +646,7 @@ server.post("/api/add-comment", verifyJWT, (req, res) => {
 	});
 });
 
-server.post("/api/get-blog-comments", (req, res) => {
+server.post("/inkspire/api/get-blog-comments", (req, res) => {
 	const { blog_id, skip } = req.body;
 
 	const maxLimit = 5;
@@ -665,7 +665,7 @@ server.post("/api/get-blog-comments", (req, res) => {
 		.catch((err) => res.status(500).json({ error: err.message }));
 });
 
-server.post("/api/get-replies", (req, res) => {
+server.post("/inkspire/api/get-replies", (req, res) => {
 	const { _id, skip } = req.body;
 
 	const maxLimit = 5;
@@ -739,7 +739,7 @@ const deleteComments = (_id) => {
 		.catch((err) => console.log(err));
 };
 
-server.post("/api/delete-comment", verifyJWT, (req, res) => {
+server.post("/inkspire/api/delete-comment", verifyJWT, (req, res) => {
 	const user_id = req.user;
 
 	const { _id } = req.body;
@@ -755,7 +755,7 @@ server.post("/api/delete-comment", verifyJWT, (req, res) => {
 	});
 });
 
-server.post("/api/change-password", verifyJWT, (req, res) => {
+server.post("/inkspire/api/change-password", verifyJWT, (req, res) => {
 	const { currentPassword, newPassword } = req.body;
 	console.log(currentPassword, newPassword, req.user);
 
@@ -820,7 +820,7 @@ server.post("/api/change-password", verifyJWT, (req, res) => {
 		});
 });
 
-server.post("/api/update-profile-img", verifyJWT, (req, res) => {
+server.post("/inkspire/api/update-profile-img", verifyJWT, (req, res) => {
 	const { url } = req.body;
 
 	User.findOneAndUpdate({ _id: req.user }, { "personal_info.profile_img": url })
@@ -830,7 +830,7 @@ server.post("/api/update-profile-img", verifyJWT, (req, res) => {
 		.catch((err) => res.status(500).json({ error: err.message }));
 });
 
-server.post("/api/update-profile", verifyJWT, (req, res) => {
+server.post("/inkspire/api/update-profile", verifyJWT, (req, res) => {
 	const { username, bio, social_links } = req.body;
 
 	const bioLimit = 150;
@@ -892,7 +892,7 @@ server.post("/api/update-profile", verifyJWT, (req, res) => {
 	}
 });
 
-server.get("/api/new-notification", verifyJWT, (req, res) => {
+server.get("/inkspire/api/new-notification", verifyJWT, (req, res) => {
 	const user_id = req.user;
 
 	Notification.exists({
@@ -913,7 +913,7 @@ server.get("/api/new-notification", verifyJWT, (req, res) => {
 		});
 });
 
-server.post("/api/notifications", verifyJWT, (req, res) => {
+server.post("/inkspire/api/notifications", verifyJWT, (req, res) => {
 	const user_id = req.user;
 
 	const { page, filter, deletedDocCount } = req.body;
@@ -959,7 +959,7 @@ server.post("/api/notifications", verifyJWT, (req, res) => {
 		});
 });
 
-server.post("/api/all-notifications-count", verifyJWT, (req, res) => {
+server.post("/inkspire/api/all-notifications-count", verifyJWT, (req, res) => {
 	const user_id = req.user;
 	const { filter } = req.body;
 
@@ -978,7 +978,7 @@ server.post("/api/all-notifications-count", verifyJWT, (req, res) => {
 		});
 });
 
-server.post("/api/user-written-blogs", verifyJWT, (req, res) => {
+server.post("/inkspire/api/user-written-blogs", verifyJWT, (req, res) => {
 	const user_id = req.user;
 
 	const { page, draft, query, deletedDocCount } = req.body;
@@ -1003,7 +1003,7 @@ server.post("/api/user-written-blogs", verifyJWT, (req, res) => {
 		});
 });
 
-server.post("/api/user-written-blogs-count", verifyJWT, (req, res) => {
+server.post("/inkspire/api/user-written-blogs-count", verifyJWT, (req, res) => {
 	const user_id = req.user;
 
 	const { draft, query } = req.body;
@@ -1022,7 +1022,7 @@ server.post("/api/user-written-blogs-count", verifyJWT, (req, res) => {
 		});
 });
 
-server.post("/api/delete-blog", verifyJWT, (req, res) => {
+server.post("/inkspire/api/delete-blog", verifyJWT, (req, res) => {
 	const user_id = req.user;
 	const { blog_id } = req.body;
 
